@@ -37,11 +37,38 @@ function getEmployeesByService(array $employees,string $service):array{
 	);
 }
 
+/**
+ * retourne un tableau filtré d'élément satisfaisant une condition $key=$value
+ * @param array $array Tableau à filtrer
+ * @param string $key nom du champ sur lequel une condition est posée
+ * @param mixed $value valeur de recherche
+ * @return array
+ */
 
+function where(array $array, string $key, $value):array{
+	$result=[];
+	foreach ($array as $element){
+		if ($element[$key]===$value){
+			$result[]=$element;
+		}
+	}
+	return $result;
+}
 
+function select (array $array, array $selectFields):array{
+	$result=[];
+	foreach ($array as $index=>$element){
+		$result[$index]=[];
+		foreach ($selectFields as $fieldKey){
+			$result[$index][$fieldKey]=$element[$fieldKey];
+		}
+	}
+	return $result;
+}
 
-
-
+function selectwhere (array $array, array $selectFields, array $where):array{
+	return select(where($array, $where[0], $where[1]), $selectFields);
+}
 
 
 
